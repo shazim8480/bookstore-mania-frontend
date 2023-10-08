@@ -1,7 +1,12 @@
+import { IBook } from "@/types/globalTypes";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function BookCard() {
+interface IProps {
+  bookItem: IBook;
+}
+
+export default function BookCard({ bookItem }: IProps) {
   return (
     <div className="card shadow-md w-80 bg-slate-100">
       <figure>
@@ -12,11 +17,9 @@ export default function BookCard() {
         />
       </figure>
       <div className="card-body">
-        <h3 className="card-title">
-          The Song of Ice and Fire
-          <div className="badge badge-accent">NEW</div>
-        </h3>
-        <p>$85.00</p>
+        <h3 className="card-title">{bookItem?.title}</h3>
+        <div className="badge badge-accent">{bookItem?.author}</div>
+        <p>${bookItem?.price}</p>
         <button className="btn btn-primary mt-3">
           <Link to="/book-details">Explore Now</Link>
         </button>
