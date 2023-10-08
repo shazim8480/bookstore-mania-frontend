@@ -1,26 +1,31 @@
-interface IInput {
-  id: string;
-  type?: string;
+import * as React from "react";
+
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+interface ILabel {
   label?: string;
-  placeholder?: string;
-  autoCapitalize?: string;
-  autoComplete?: string;
-  autoCorrect?: string;
 }
 
-export default function Input(props: IInput) {
-  return (
-    <div className="form-control w-full max-w-xs">
-      <label className="label">
-        <span className="label-text">{props.label ? props?.label : null}</span>
-      </label>
-      <input
-        id={props?.id}
-        type={props?.type ? props?.type : "text"}
-        placeholder={props?.placeholder ? props?.placeholder : ""}
-        autoCorrect="off"
-        className="input input-bordered w-full max-w-xs"
-      />
-    </div>
-  );
-}
+const Input = React.forwardRef<HTMLInputElement, InputProps & ILabel>(
+  ({ className, type, label, ...props }, ref) => {
+    return (
+      <div className="form-control w-full max-w-xs">
+        {label && (
+          <label className="label">
+            <span className="label-text">{label}</span>
+          </label>
+        )}
+        <input
+          type={type}
+          className="input input-bordered w-full max-w-xs"
+          ref={ref}
+          {...props}
+        />
+      </div>
+    );
+  }
+);
+Input.displayName = "Input";
+
+export { Input };

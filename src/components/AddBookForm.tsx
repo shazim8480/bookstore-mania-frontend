@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import Input from "./ui/Input";
+import { Input } from "./ui/Input";
 
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ interface AddBookFormInputs {
   title: string;
   author: string;
   price: number;
-  publication_year: number;
+  publication_date: number;
   genre: string;
   email: string;
 }
@@ -28,13 +28,12 @@ export function AddBookForm({ className, ...props }: AddBookFormProps) {
     formState: { errors },
   } = useForm<AddBookFormInputs>();
 
-  //   const data:IBook = {
+  const [addBook] = useAddBookMutation();
 
-  //   }
-  //   const { addBook } = useAddBookMutation(data);
+  const onSubmit = (bookData: AddBookFormInputs) => {
+    console.log("book=data", bookData);
 
-  const onSubmit = (data: AddBookFormInputs) => {
-    console.log(data);
+    addBook(bookData);
   };
 
   return (
@@ -103,17 +102,17 @@ export function AddBookForm({ className, ...props }: AddBookFormProps) {
 
           <div className="grid gap-1">
             <Input
-              label="Publication Year"
-              id={"publication_year"}
+              label="Publication Date"
+              id={"publication_date"}
               autoCapitalize={"none"}
               autoCorrect={"off"}
-              {...register("publication_year", {
+              {...register("publication_date", {
                 required: "Publication Year is required",
               })}
             />
-            {errors.publication_year && (
+            {errors.publication_date && (
               <p className="text-sm text-red-500 ml-1">
-                {errors.publication_year.message}
+                {errors.publication_date.message}
               </p>
             )}
           </div>
