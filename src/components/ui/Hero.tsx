@@ -15,9 +15,9 @@ export default function Hero() {
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold">Hello there!</h1>
           <p className="mb-5">Our Heartiest welcome to Book-store Mania!</p>
-          <button className="btn btn-primary">
-            <Link to="/books">Explore Now</Link>
-          </button>
+          <Link to="/books">
+            <button className="btn btn-primary">Explore Now</button>
+          </Link>
         </div>
       </div>
     </div>

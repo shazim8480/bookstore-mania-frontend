@@ -12,7 +12,7 @@ export default function BookCard({ bookItem }: IProps) {
       <figure>
         <img
           className="object-cover h-[300px] w-[350px]"
-          src="https://images.pexels.com/photos/6373305/pexels-photo-6373305.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          src="https://source.unsplash.com/random?books"
           alt="Books"
         />
       </figure>
@@ -20,9 +20,9 @@ export default function BookCard({ bookItem }: IProps) {
         <h3 className="card-title">{bookItem?.title}</h3>
         <div className="badge badge-accent">{bookItem?.author}</div>
         <p>${bookItem?.price}</p>
-        <button className="btn btn-primary mt-3">
-          <Link to="/book-details">Explore Now</Link>
-        </button>
+        <Link className="w-full" to={`/book-details/${bookItem._id}`}>
+          <button className="btn btn-primary mt-3">Explore Now</button>
+        </Link>
       </div>
     </div>
   );
