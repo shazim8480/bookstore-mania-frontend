@@ -28,16 +28,25 @@ export function AddBookForm({ className, ...props }: AddBookFormProps) {
     formState: { errors },
   } = useForm<AddBookFormInputs>();
 
-  const [addBook] = useAddBookMutation();
+  const [addBook, { isSuccess }] = useAddBookMutation();
 
   const onSubmit = (bookData: AddBookFormInputs) => {
-    console.log("book=data", bookData);
+    console.log("book-data", bookData);
 
     addBook(bookData);
+
+    console.log("isSuccess", isSuccess);
   };
 
   return (
     <div className="" {...props}>
+      {isSuccess && (
+        <div className="toast toast-end">
+          <div className="alert alert-success">
+            <span>Book Added successfully.</span>
+          </div>
+        </div>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-3 gap-2">
           <div className="grid gap-1">
