@@ -1,14 +1,10 @@
 import { useSingleBookQuery } from "@/redux/features/books/books-api";
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 
 export default function BookDetails() {
   const { id } = useParams();
-  const { data: singleBookData, isLoading } = useSingleBookQuery(id);
-  console.log(
-    "🚀 ~ file: BookDetails.tsx:8 ~ BookDetails ~ singleBookData:",
-    singleBookData
-  );
+  const { data: singleBookData } = useSingleBookQuery(id);
 
   // useEffect((): any => {
   //   if (isLoading) {
@@ -22,7 +18,7 @@ export default function BookDetails() {
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
             alt="book"
-            className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+            className="lg:w-1/2 w-full lg:h-auto h-32 object-cover object-center rounded"
             src="https://source.unsplash.com/random?books"
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -46,9 +42,12 @@ export default function BookDetails() {
                 ${singleBookData?.price}.00
               </span>
               {/* EDIT btn */}
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Edit Book
-              </button>
+              <Link to={`/edit-book/${id}`}>
+                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                  Edit Book
+                </button>
+              </Link>
+
               {/* DLT Button */}
               <button className="flex ml-5 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                 Remove
