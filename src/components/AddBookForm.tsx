@@ -9,7 +9,7 @@
 // import { useForm } from "react-hook-form";
 // import { FcGoogle } from "react-icons/fc";
 
-// type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
+// type AddBookFormProps = React.HTMLAttributes<HTMLDivElement>;
 
 // interface AddBookFormInputs {
 //    authorName: string;
@@ -19,7 +19,7 @@
 
 // }
 
-// export function AddBookForm({ className, ...props }: UserAuthFormProps) {
+// export function AddBookForm({ className, ...props }: AddBookFormProps) {
 //   const {
 //     register,
 //     handleSubmit,
