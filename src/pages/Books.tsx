@@ -1,7 +1,6 @@
 import BookCard from "@/components/Book-card";
 import { useGetBooksQuery } from "@/redux/features/books/books-api";
 import { IBook } from "@/types/globalTypes";
-import React from "react";
 
 export default function Books() {
   const { data: allBooksData } = useGetBooksQuery(undefined);
