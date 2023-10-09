@@ -15,7 +15,7 @@ export default function Home() {
         <h2 className="mb-10 text-4xl text-center text-indigo-800 font-bold">
           Featured Collections
         </h2>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 content-center items-center">
           {allBooksData?.data?.map((bookItem: IBook, index: number) => {
             return <BookCard key={index} bookItem={bookItem} />;
           })}

@@ -1,11 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useEffect } from "react";
 
 import { Input } from "./ui/Input";
 
 import { useForm } from "react-hook-form";
 import { useAddBookMutation } from "@/redux/features/books/books-api";
+import { useAppSelector } from "@/redux/hooks";
 // import { useNavigate } from "react-router-dom";
 // import { FcGoogle } from "react-icons/fc";
 
@@ -24,12 +26,14 @@ export function AddBookForm({ ...props }: AddBookFormProps) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<AddBookFormInputs>();
 
   //   const navigate = useNavigate();
 
   const [addBook, { isSuccess }] = useAddBookMutation();
+  const { user } = useAppSelector((state) => state.user);
 
   const onSubmit = (bookData: AddBookFormInputs) => {
     // console.log("book-data", bookData);
@@ -44,6 +48,12 @@ export function AddBookForm({ ...props }: AddBookFormProps) {
 
     // console.log("isSuccess", isSuccess);
   };
+
+  useEffect(() => {
+    if (user?.email) {
+      setValue("email", user?.email);
+    }
+  }, [setValue, user?.email]);
 
   return (
     <div className="" {...props}>
@@ -137,12 +147,13 @@ export function AddBookForm({ ...props }: AddBookFormProps) {
             <Input
               label="Email"
               id={"email"}
-              placeholder="name@example.com"
+              disabled={true}
               type={"email"}
               autoCapitalize="none"
               autoComplete={"email"}
               autoCorrect="off"
               {...register("email", { required: "Email is required" })}
+              defaultValue={user?.email || ""}
             />
             {errors.email && (
               <p className="text-sm text-red-500 ml-1">

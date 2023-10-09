@@ -165,6 +165,7 @@ export function EditBookForm({
 
           <div className="grid gap-1">
             <Input
+              disabled={true}
               label="Email"
               id={"email"}
               placeholder="name@example.com"
@@ -184,7 +185,7 @@ export function EditBookForm({
         </div>
         <div className="flex justify-center mt-20">
           <button type="submit" className="btn btn-outline btn-success w-1/3">
-            Submit Book
+            Submit Entry
           </button>
         </div>
       </form>

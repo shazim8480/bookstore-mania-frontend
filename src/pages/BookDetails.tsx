@@ -1,15 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   useDeleteBookMutation,
   useSingleBookQuery,
 } from "@/redux/features/books/books-api";
-import { useEffect, useState } from "react";
+import { useAppSelector } from "@/redux/hooks";
+import { useEffect } from "react";
 // import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function BookDetails() {
   const { id } = useParams();
-  const { data: singleBookData } = useSingleBookQuery(id);
+  const { data: singleBookData, isLoading } = useSingleBookQuery(id);
   const [deleteBook, { isSuccess }] = useDeleteBookMutation();
+
+  const { user } = useAppSelector((state) => state.user);
+  console.log("user info", user);
 
   const navigate = useNavigate();
 
@@ -19,9 +24,9 @@ export default function BookDetails() {
         navigate("/");
       }
     }, 1200);
-  }, [singleBookData, deleteBook, isSuccess]);
+  }, [singleBookData, deleteBook, isSuccess, navigate, isLoading]);
 
-  const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
+  // const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   // console.log(
   //   "🚀 ~ file: BookDetails.tsx:21 ~ BookDetails ~ deleteModalVisible:",
   //   deleteModalVisible
@@ -41,58 +46,68 @@ export default function BookDetails() {
           </div>
         </div>
       )}
-      <div className="container px-5 py-24 mx-auto">
-        <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <img
-            alt="book"
-            className="lg:w-1/2 w-full lg:h-auto h-32 object-cover object-center rounded"
-            src="https://source.unsplash.com/random?books"
-          />
-          <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            {/* Book name */}
-            <h2 className="text-gray-700 text-3xl font-bold title-font mb-4">
-              {singleBookData?.title}
-            </h2>
-            <div className="mb-4">
-              <h3 className="text-indigo-500 pt-2">
-                Published : {singleBookData?.publication_date}
-              </h3>
-              <h3 className="text-indigo-500 pt-2">
-                Author : {singleBookData?.author}
-              </h3>
-              <h3 className="text-indigo-500 pt-2">
-                Genre : {singleBookData?.genre}
-              </h3>
-            </div>
-            <div className="my-10">
-              <span className="title-font font-medium text-2xl text-gray-900">
-                ${singleBookData?.price}.00
-              </span>
-            </div>
-            <div className="flex">
-              {/* EDIT btn */}
-              <Link to={`/edit-book/${id}`}>
-                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                  Edit Book
-                </button>
-              </Link>
+      {isLoading ? (
+        <p className="min-h-screen flex flex-col justify-center items-center text-lg text-indigo-600 text-center">
+          Loading...
+        </p>
+      ) : (
+        <div className="container px-5 py-24 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-wrap">
+            <img
+              alt="book"
+              className="lg:w-1/2 w-full lg:h-auto h-32 object-cover object-center rounded"
+              src="https://source.unsplash.com/random?books"
+            />
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              {/* Book name */}
+              <h2 className="text-gray-700 text-3xl font-bold title-font mb-4">
+                {singleBookData?.title}
+              </h2>
+              <div className="mb-4">
+                <h3 className="text-indigo-500 pt-2">
+                  Published : {singleBookData?.publication_date}
+                </h3>
+                <h3 className="text-indigo-500 pt-2">
+                  Author : {singleBookData?.author}
+                </h3>
+                <h3 className="text-indigo-500 pt-2">
+                  Genre : {singleBookData?.genre}
+                </h3>
+              </div>
+              <div className="my-10">
+                <span className="title-font font-medium text-2xl text-gray-900">
+                  ${singleBookData?.price}.00
+                </span>
+              </div>
+              {/* edit and delete logic according to user */}
+              {user?.email === singleBookData?.email && (
+                <div className="flex">
+                  {/* EDIT btn */}
+                  <Link to={`/edit-book/${id}`}>
+                    <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                      Edit Book
+                    </button>
+                  </Link>
 
-              {/* DLT Button */}
-              <button
-                onClick={() => {
-                  // setDeleteModalVisible(true);
-                  handleDeleteBook(id);
-                }}
-                className="flex ml-5 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-              >
-                Remove
-              </button>
+                  {/* DLT Button */}
+                  <button
+                    onClick={() => {
+                      // setDeleteModalVisible(true);
+                      handleDeleteBook(id);
+                    }}
+                    className="flex ml-5 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      )}
+
       {/* modal for delete confirmation */}
-      {deleteModalVisible && (
+      {/* {deleteModalVisible && (
         <div className="modal" id="my_modal_8">
           <div className="modal-box">
             <h3 className="font-bold text-lg">Caution</h3>
@@ -109,7 +124,7 @@ export default function BookDetails() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </section>
   );
 }
