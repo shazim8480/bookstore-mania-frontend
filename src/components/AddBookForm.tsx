@@ -6,6 +6,7 @@ import { Input } from "./ui/Input";
 
 import { useForm } from "react-hook-form";
 import { useAddBookMutation } from "@/redux/features/books/books-api";
+import { useNavigate } from "react-router-dom";
 // import { FcGoogle } from "react-icons/fc";
 
 type AddBookFormProps = React.HTMLAttributes<HTMLDivElement>;
@@ -26,14 +27,22 @@ export function AddBookForm({ className, ...props }: AddBookFormProps) {
     formState: { errors },
   } = useForm<AddBookFormInputs>();
 
+  //   const navigate = useNavigate();
+
   const [addBook, { isSuccess }] = useAddBookMutation();
 
   const onSubmit = (bookData: AddBookFormInputs) => {
-    console.log("book-data", bookData);
+    // console.log("book-data", bookData);
 
     addBook(bookData);
 
-    console.log("isSuccess", isSuccess);
+    // setTimeout(() => {
+    // if (isSuccess) {
+    //   navigate("/");
+    // }
+    // }, 800);
+
+    // console.log("isSuccess", isSuccess);
   };
 
   return (
@@ -141,7 +150,9 @@ export function AddBookForm({ className, ...props }: AddBookFormProps) {
               </p>
             )}
           </div>
-          <button type="submit" className="btn btn-secondary mt-3">
+        </div>
+        <div className="flex justify-center mt-20">
+          <button type="submit" className="btn btn-success w-1/3">
             Submit Book
           </button>
         </div>

@@ -4,7 +4,9 @@ import { useGetBooksQuery } from "@/redux/features/books/books-api";
 import { IBook } from "@/types/globalTypes";
 
 export default function Home() {
-  const { data: allBooksData } = useGetBooksQuery(undefined);
+  const { data: allBooksData } = useGetBooksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   console.log("🚀 ~ file: Home.tsx:8 ~ Home ~ allBooksData:", allBooksData);
   return (
     <>
