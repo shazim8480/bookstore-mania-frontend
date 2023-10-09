@@ -6,7 +6,7 @@ import React from "react";
 export default function Books() {
   const { data: allBooksData } = useGetBooksQuery(undefined);
   return (
-    <div className="grid grid-cols-4 gap-4 py-10 px-5">
+    <div className="grid grid-cols-4 gap-4 py-10 px-5 place-items-center">
       {allBooksData?.data?.map((bookItem: IBook, index: number) => {
         return <BookCard key={index} bookItem={bookItem} />;
       })}

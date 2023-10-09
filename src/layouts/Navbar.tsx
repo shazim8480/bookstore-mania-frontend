@@ -30,11 +30,9 @@ export default function Navbar() {
           <li>
             <Link to="/books">All Books</Link>
           </li>
-          {user?.email && (
-            <li>
-              <Link to="/add-book">Add New</Link>
-            </li>
-          )}
+          <li>
+            <Link to="/add-book">Add New</Link>
+          </li>
 
           {!user?.email && (
             <>

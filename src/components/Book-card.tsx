@@ -21,7 +21,9 @@ export default function BookCard({ bookItem }: IProps) {
         <div className="badge badge-accent">{bookItem?.author}</div>
         <p className="mt-2">${bookItem?.price}</p>
         <Link className="w-full" to={`/book-details/${bookItem._id}`}>
-          <button className="btn w-full btn-primary mt-1">Explore Now</button>
+          <button className="btn w-full btn-primary mt-1">
+            Explore This Book
+          </button>
         </Link>
       </div>
     </div>
