@@ -6,7 +6,7 @@ import { Input } from "./ui/Input";
 
 import { useForm } from "react-hook-form";
 import { useAddBookMutation } from "@/redux/features/books/books-api";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import { FcGoogle } from "react-icons/fc";
 
 type AddBookFormProps = React.HTMLAttributes<HTMLDivElement>;
@@ -20,7 +20,7 @@ interface AddBookFormInputs {
   email: string;
 }
 
-export function AddBookForm({ className, ...props }: AddBookFormProps) {
+export function AddBookForm({ ...props }: AddBookFormProps) {
   const {
     register,
     handleSubmit,
